@@ -18,7 +18,7 @@ class ExpensesApp extends StatelessWidget {
         accentColor: Colors.cyanAccent,
         fontFamily: 'Roboto',
         textTheme: ThemeData.light().textTheme.copyWith(
-              title: TextStyle(
+              headline6: TextStyle(
                 fontFamily: 'Roboto',
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -29,12 +29,14 @@ class ExpensesApp extends StatelessWidget {
               ),
             ),
         appBarTheme: AppBarTheme(
-            textTheme: ThemeData.light().textTheme.copyWith(
-                    title: TextStyle(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                ))),
+                ),
+              ),
+        ),
       ),
     );
   }
