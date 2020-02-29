@@ -40,15 +40,15 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/abero_0.jpeg
-    - assets/images/abero_1.jpeg
-    - assets/images/abero_2.jpeg
-    - assets/images/abero_3.jpeg
-    - assets/images/abero_4.jpeg
-    - assets/images/abero_5.jpeg
-    - assets/images/abero_6.jpeg
-    - assets/images/abero_7.jpeg
-    - assets/images/abero_8.jpeg
+    - assets/images/aberto_0.jpeg
+    - assets/images/aberto_1.jpeg
+    - assets/images/aberto_2.jpeg
+    - assets/images/aberto_3.jpeg
+    - assets/images/aberto_4.jpeg
+    - assets/images/aberto_5.jpeg
+    - assets/images/aberto_6.jpeg
+    - assets/images/aberto_7.jpeg
+    - assets/images/aberto_8.jpeg
     - assets/images/bandeira.jpeg
     - assets/images/bomba_0.jpeg
     - assets/images/bomba_1.jpeg

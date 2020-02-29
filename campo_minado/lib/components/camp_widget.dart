@@ -19,7 +19,7 @@ class CampWidget extends StatelessWidget {
     } else if (camp.opened && camp.mined) {
       return Image.asset('assets/images/bomba_1.jpeg');
     } else if (camp.opened) {
-      return Image.asset('assets/images/bomba_$numOfMines.jpeg');
+      return Image.asset('assets/images/aberto_$numOfMines.jpeg');
     } else if (camp.marqued) {
       return Image.asset('assets/images/bandeira.jpeg');
     } else {
