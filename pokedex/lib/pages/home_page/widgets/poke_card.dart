@@ -1,46 +1,110 @@
 import 'package:flutter/material.dart';
+import 'package:pokeapi/model/pokemon/pokemon.dart';
+import 'package:pokedex/consts/consts_app.dart';
 
 class PokeCard extends StatelessWidget {
+  final String pokeName;
+  final List<Types> pokeTypes;
+  final String imageURL;
+
+  PokeCard({
+    @required this.pokeName,
+    @required this.pokeTypes,
+    @required this.imageURL,
+  });
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      padding: const EdgeInsets.all(15),
-      width: screenWidth / 2,
-      color: Colors.red,
+      decoration: BoxDecoration(
+        color: Colors.red,
+        borderRadius: BorderRadius.all(
+          const Radius.circular(12),
+        ),
+      ),
+      width: screenWidth / 2 - 10,
+      height: 120,
+      // color: Colors.red,
       child: Stack(
         children: <Widget>[
           Column(
             children: <Widget>[
-              Container(
-                child: Text(
-                  "Bulbasaur",
-                  style: TextStyle(
-                    fontFamily: 'Google',
-                    fontWeight: FontWeight.bold,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(15, 15, 15, 5),
+                    child: Text(
+                      this.pokeName,
+                      style: TextStyle(
+                        fontFamily: 'Google',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-              Container(
-                child: Text(
-                  "Grass",
-                ),
-              ),
-              Container(
-                child: Text(
-                  "Poison",
-                ),
+              Column(
+                children: pokeTypes.map((label) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 5,
+                          horizontal: 15,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white24,
+                          borderRadius: BorderRadius.all(
+                            const Radius.circular(25),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 6,
+                          ),
+                          child: Text(
+                            label.type.name.toString(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }).toList(),
               ),
             ],
           ),
-          Container(
-            alignment: Alignment.bottomRight,
-            width: 90,
-            height: 90,
-            child: FittedBox(
-              alignment: Alignment.bottomRight,
-              child: Image.network(
-                  "https://i.pinimg.com/originals/da/86/29/da8629d699da6e847a69278e5454e65b.png"),
+          Positioned(
+            bottom: -10,
+            right: -5,
+            child: Container(
+              child: Opacity(
+                opacity: 0.2,
+                child: Image.asset(
+                  ConstApp.whitePokeball,
+                  height: 90,
+                  width: 90,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              margin: const EdgeInsets.all(5),
+              width: 70,
+              height: 70,
+              child: Image.network(imageURL),
             ),
           ),
         ],
