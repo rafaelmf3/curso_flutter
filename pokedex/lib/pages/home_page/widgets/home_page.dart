@@ -76,6 +76,7 @@ class HomePage extends StatelessWidget {
                 Container(
                   alignment: Alignment.centerLeft,
                   width: screenWidth - 40,
+                  margin: EdgeInsets.only(bottom: 15),
                   child: Text(
                     'Pokedex',
                     style: TextStyle(
@@ -86,94 +87,41 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  child: FutureBuilder<List<Pokedex>>(
-                    future: pokedex,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) print(snapshot.error);
-                      return snapshot.hasData
-                          ? Text(snapshot.data.toString())
-                          : Center(
+                  child: Column(
+                    children: <Widget>[
+                      FutureBuilder<List<Pokemon>>(
+                        future: PokeAPI.getObjectList<Pokemon>(1, 10),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            List<Pokemon> pokeList = snapshot.data.toList();
+                            return Container(
+                              height: 750,
+                              child: new GridView.count(
+                                  childAspectRatio: 1.4,
+                                  crossAxisCount: 2,
+                                  children: pokeList
+                                      .map((e) => Container(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 10, 10, 10),
+                                            child: new PokeCard(
+                                              pokeName: e.name,
+                                              pokeTypes: ['Grass', 'Poison'],
+                                              imageURL:
+                                                  'https://pokeres.bastionbot.org/images/pokemon/${e.id.toString()}.png',
+                                            ),
+                                          ))
+                                      .toList()),
+                            );
+                          } else {
+                            return Center(
                               child: CircularProgressIndicator(),
                             );
-                    },
+                          }
+                        },
+                      ),
+                    ],
                   ),
-                ),
-                // Container(
-                //   child: PokeCard(
-                //     pokeName: 'Bulbasaur',
-                //     pokeTypes: Types({1,'Grass'}, {} )['Grass', 'Poison'],
-                //     imageURL:
-                //         'https://pokeres.bastionbot.org/images/pokemon/890.png',
-                //   ),
-                // ),
-
-                // Column(
-                //   children: <Widget>[
-                //     FutureBuilder(
-                //         future: PokeAPI.getObjectList<Pokemon>(1, 10),
-                //         builder: (context, snapshot) {
-                //           if (snapshot.hasData) {
-                //             List<Pokemon> pokemonList = snapshot.data;
-                // var lista = pokemonList.map((algo) {
-                //   return PokeCard(
-                //     pokeName: algo.name,
-                //     pokeTypes: algo.types,
-                //     imageURL:
-                //         'https://pokeres.bastionbot.org/images/pokemon/${algo.id}.png',
-                //   );
-                // });
-
-                // var lista = ListView.builder(
-                //   itemCount: pokemonList.length,
-                //   itemBuilder: (context, index) {
-                //     var pokeId = pokemonList[index].id.toString();
-                //     return PokeCard(
-                //       pokeName: pokemonList[index].name,
-                //       pokeTypes: pokemonList[index].types,
-                //       imageURL:
-                //           'https://pokeres.bastionbot.org/images/pokemon/$pokeId.png',
-                //     );
-                //   },
-                // );
-
-                // print(lista.length);
-                // return lista;
-                // Column(
-                //   children: <Widget>[
-                //     lista.reduce((value, element) => PokeCard(
-                //           pokeName: value.pokeName,
-                //           pokeTypes: value.pokeTypes,
-                //           imageURL: value.imageURL,
-                //         ))
-                //   ],
-                // );
-                // pokemonList.fold([], (list, b) {
-                //   list.add(b.name);
-                //   list.add(b.id);
-                //   // print(list);
-                //   // print(b);
-                //   return PokeCard(
-                //     pokeName: b.name,
-                //     pokeTypes: b.types,
-                //     imageURL:
-                //         'https://pokeres.bastionbot.org/images/pokemon/890.png',
-                //   );
-                // });
-                // return Text(list.toString());
-                // return PokeCard(pokeName: ,)
-                //   } else {
-                //     return Text("");
-                //   }
-                // })
-                // ],
-                // ),
-                // ListView.builder(
-                //   // itemCount: ,
-                //   itemBuilder: (ctx, index) {
-                //     final tr = dataPoke[index];
-                //     return Text(tr.name);
-                //   },
-                // ),
+                )
               ],
             ),
           ),

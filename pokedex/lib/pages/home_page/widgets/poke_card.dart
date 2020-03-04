@@ -4,7 +4,7 @@ import 'package:pokedex/consts/consts_app.dart';
 
 class PokeCard extends StatelessWidget {
   final String pokeName;
-  final List<Types> pokeTypes;
+  final List<String> pokeTypes;
   final String imageURL;
 
   PokeCard({
@@ -23,8 +23,8 @@ class PokeCard extends StatelessWidget {
           const Radius.circular(12),
         ),
       ),
-      width: screenWidth / 2 - 10,
-      height: 120,
+      // width: screenWidth / 2 - 10,
+      // height: 120,
       // color: Colors.red,
       child: Stack(
         children: <Widget>[
@@ -69,7 +69,7 @@ class PokeCard extends StatelessWidget {
                             vertical: 6,
                           ),
                           child: Text(
-                            label.type.name.toString(),
+                            label.toString(),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 10,

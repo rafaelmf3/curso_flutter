@@ -24,6 +24,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> list = new List();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -35,19 +36,11 @@ class MyHomePage extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasError) print(snapshot.error);
                 print(snapshot.data);
-                List<Pokemon> pokeList = snapshot.data;
-                return snapshot.hasData
-                    ? Row(
-                        children: <Widget>[
-                          pokeList.fold(null, (list, pokemon) {
-                            print(pokemon.name);
-                            return Text(pokemon.name);
-                          })
-                        ],
-                      )
-                    : Center(
-                        child: CircularProgressIndicator(),
-                      );
+                if (snapshot.hasData) {
+                  List<Pokemon> pokeList = snapshot.data.toList();
+                  return new Column(
+                      children: pokeList.map((e) => new Text(e.name)).toList());
+                }
               },
             ),
           ],
