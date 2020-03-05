@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokedex/consts/consts_app.dart';
+import 'package:pokedex/consts/consts_color.dart';
 
 class PokeCard extends StatelessWidget {
   final String pokeName;
@@ -16,15 +17,18 @@ class PokeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final colorCard = pokeTypes.last;
+    print(colorCard.toString());
     return Container(
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: ConstsColor.getColorType(type: colorCard.toString()),
+        // color: Color.fromRGBO(10, 10, 10, 1),
         borderRadius: BorderRadius.all(
           const Radius.circular(12),
         ),
       ),
       // width: screenWidth / 2 - 10,
-      // height: 120,
+      height: 120,
       // color: Colors.red,
       child: Stack(
         children: <Widget>[
