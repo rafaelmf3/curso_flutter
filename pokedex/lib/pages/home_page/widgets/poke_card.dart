@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokedex/consts/consts_app.dart';
 import 'package:pokedex/consts/consts_color.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class PokeCard extends StatelessWidget {
   final String pokeName;
@@ -108,7 +109,11 @@ class PokeCard extends StatelessWidget {
               margin: const EdgeInsets.all(5),
               width: 70,
               height: 70,
-              child: Image.network(imageURL),
+              child: FadeInImage.assetNetwork(
+                // height: 70,
+                placeholder: 'assets/images/poke_ball.gif',
+                image: imageURL,
+              ),
             ),
           ),
         ],

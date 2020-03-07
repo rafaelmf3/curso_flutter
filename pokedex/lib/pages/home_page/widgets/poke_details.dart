@@ -3,15 +3,33 @@ import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokeapi/pokeapi.dart';
 import 'package:pokedex/consts/consts_app.dart';
 
-class PokeDetails extends StatelessWidget {
+Future goBack(context) async {
+  Navigator.pop(context, true);
+}
+
+class PokeDetails extends StatefulWidget {
   final int pokemonId;
 
   PokeDetails({
     @required this.pokemonId,
   });
 
+  @override
+  _PokeDetailsState createState() => _PokeDetailsState();
+}
+
+class _PokeDetailsState extends State<PokeDetails>
+    with SingleTickerProviderStateMixin {
+  TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = new TabController(length: 2, vsync: this);
+  }
+
   Future getPokemon() async {
-    final Pokemon pokemon = await PokeAPI.getObject<Pokemon>(pokemonId);
+    final Pokemon pokemon = await PokeAPI.getObject<Pokemon>(widget.pokemonId);
     return pokemon;
   }
 
@@ -137,7 +155,9 @@ class PokeDetails extends StatelessWidget {
                       IconButton(
                         color: Colors.white,
                         icon: Icon(Icons.arrow_back),
-                        onPressed: () {},
+                        onPressed: () {
+                          goBack(context);
+                        },
                       ),
                       IconButton(
                         color: Colors.white,
@@ -157,6 +177,61 @@ class PokeDetails extends StatelessWidget {
               ],
             ),
           ),
+          Positioned(
+            top: 450,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  width: screenWidth,
+                  height: 450,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      const Radius.circular(25),
+                    ),
+                    color: Colors.white,
+                  ),
+                  child: Text(' '),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            // bottom: 0,
+            // right: 0,
+            top: 320,
+            child: Container(
+              // margin: const EdgeInsets.all(5),
+              width: 150,
+              height: 150,
+              child: Image.network(
+                'https://pokeres.bastionbot.org/images/pokemon/1.png',
+              ),
+            ),
+          ),
+
+          // Positioned(
+          //   top: 450,
+          //   child: Container(
+          //     decoration: new BoxDecoration(
+          //       color: Colors.white,
+          //       borderRadius: BorderRadius.circular(25),
+          //     ),
+          //     child: new TabBar(
+          //       controller: _controller,
+          //       tabs: <Widget>[
+          //         new Tab(
+          //           icon: Icon(Icons.error),
+          //           text: 'Teste',
+          //         ),
+          //         new Tab(
+          //           icon: Icon(Icons.euro_symbol),
+          //           text: 'teste2',
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

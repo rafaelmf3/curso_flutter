@@ -31,44 +31,47 @@ Widget pokemonWidget() {
       }
       print('project snapshot data is: ${pokeSnap.data}');
       return Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 4,
-            crossAxisSpacing: 2,
-            childAspectRatio: 1.4,
-          ),
-          itemCount: pokeSnap.data.length,
-          itemBuilder: (context, index) {
-            Pokemon pokemon = pokeSnap.data[index];
-            return Column(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    goToPokeDetails(pokemon.id, context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    child: PokeCard(
-                      imageURL:
-                          'https://pokeres.bastionbot.org/images/pokemon/${pokemon.id.toString()}.png',
-                      pokeName: pokemon.name,
-                      pokeTypes: pokemon.types.fold(
-                        <String>[],
-                        (list, p) {
-                          list.add(p.type.name.toString());
-                          return list;
-                        },
-                      ),
-                    ),
+          margin: EdgeInsets.symmetric(horizontal: 10),
+          child: pokeSnap.hasData
+              ? GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 4,
+                    crossAxisSpacing: 2,
+                    // childAspectRatio: 1.4,
                   ),
-                ),
-              ],
-            );
-          },
-        ),
-      );
+                  itemCount: pokeSnap.data.length,
+                  itemBuilder: (context, index) {
+                    Pokemon pokemon = pokeSnap.data[index];
+                    return Column(
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            goToPokeDetails(pokemon.id, context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            child: PokeCard(
+                              imageURL:
+                                  'https://pokeres.bastionbot.org/images/pokemon/${pokemon.id.toString()}.png',
+                              pokeName: pokemon.name,
+                              pokeTypes: pokemon.types.fold(
+                                <String>[],
+                                (list, p) {
+                                  list.add(p.type.name.toString());
+                                  return list;
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                )
+              : Center(
+                  child: CircularProgressIndicator(),
+                ));
     },
     future: getPokemonList(),
   );
